@@ -1,0 +1,25 @@
+#cat {
+	background-image: url('../props/cat.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#field {
+	border: 1px solid #333;
+	color: #FFD1AA;
+}
+#field td {
+	padding: 0;
+	background-color: rgba(238, 238, 210, 0.4);
+}
+#field tr:nth-child(odd) td:nth-child(even),
+#field tr:nth-child(even) td:nth-child(odd) {
+	background-color: rgba(118, 150, 86, 0.4);
+}
+
+@font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
+  font-family: Noto;
+  src: local("Noto Emoji"), local("Noto Color Emoji"), local("Noto"), 
+       url("https://cdn.rawgit.com/googlei18n/noto-emoji/master/fonts/NotoEmoji-Regular.ttf");
+}

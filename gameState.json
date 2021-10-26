@@ -1,0 +1,33 @@
+gameState = {
+	"white": {
+		"heroes": [
+			{
+				"id": 1,
+				"name": "Chihiro",
+				"icon": "👧",
+				"posX": 1,
+				"posY": 2
+			},
+			{
+				"id": 3,
+				"name": "Yubaba",
+				"icon": "👵",
+				"posX": 2,
+				"posY": 2
+			}
+		]
+	},
+	"black": {
+		"heroes":[
+			{
+				"id": 2,
+				"name": "No-Face",
+				"icon": "👺",
+				"posX": 8,
+				"posY": 4
+			}
+		]
+	},
+	"whiteFirst": true,
+	"turn": 4
+}
