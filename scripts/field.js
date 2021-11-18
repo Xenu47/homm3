@@ -22,7 +22,7 @@ function generate(){
 			td.style.width = td.style.height = td.style.maxWidth = td.style.maxHeight = sideSize+"px";
 			let id = alphabet[j]+(i+1).toString();
 			td.id = id;
-			td.innerHTML = id;
+			// td.innerHTML = id;
 			tr.appendChild(td);
 		}
 		tbody.appendChild(tr);

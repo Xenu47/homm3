@@ -21,7 +21,7 @@ function showMoves(id){
 	var movement = hero.movement.split(';');
 	// console.log(movement)
 	var availableMoves = calculateMoves(movement, hero.posX, hero.posY);
-	// console.log(availableMoves)
+	console.log(availableMoves)
 
 	for (let i in availableMoves) {
 
@@ -31,7 +31,7 @@ function showMoves(id){
 			cellToHighlight.oldcolor = cellToHighlight.style.backgroundColor;
 			cellToHighlight.style.backgroundColor = "rgba(232, 172, 134, 0.4)";
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
 		}
 	}
 	// console.log(gameState)
@@ -54,7 +54,7 @@ function hideMoves(id){
 			// console.log(cellToHighlight.id);
 			cellToHighlight.style.backgroundColor = cellToHighlight.oldcolor;
 		} catch (error) {
-			console.log(error);
+			// console.log(error);
 		}
 	}
 	// console.log(gameState)
@@ -63,18 +63,20 @@ function hideMoves(id){
 function calculateMoves(movement, heroX, heroY){
 	var coords = [];
 	var direction = movement[0];
-	console.log(direction);
-	console.log(typeof(direction));
+	// console.log(direction);
+	// console.log(typeof(direction));
 	var mirror = movement[1];
 	var x = Number(movement[2]);
 	var y = Number(movement[3]);
+	var repeat = Number(movement[4]);
+
 	if (direction.includes('r')){
 		coords.push([x,y]);
 	} if (direction.includes('l')){
 		coords.push([-x,-y]);
-	} if (direction.includes('u')){
-		coords.push([-y,x]);
 	} if (direction.includes('d')){
+		coords.push([-y,x]);
+	} if (direction.includes('u')){
 		coords.push([y,-x]);
 	} 
 
@@ -96,9 +98,23 @@ function calculateMoves(movement, heroX, heroY){
 			coords.push(c)
 		}
 	}
-	var res = []
-	for (let i in coords) {
-		res.push([heroX+coords[i][0],heroY+coords[i][1]]);
+
+	var repCoords = []
+	for (var i = 1; i <= repeat; i++) {
+		for(let j in coords){
+			repCoords.push(coords[j]);
+			let x = coords[j][0]*i;
+			let y = coords[j][1]*i;
+			let c = [x,y];
+			repCoords.push(c);
+		}
 	}
+
+	var res = []
+	for (let i in repCoords) {
+		res.push([heroX+repCoords[i][0],heroY+repCoords[i][1]]);
+	}
+	res = Array.from(new Set(res.map(JSON.stringify)), JSON.parse)
+	// console.log(res)
 	return res
 }

@@ -5,7 +5,7 @@ var gameState = {
 				"id": 1,
 				"name": "Chihiro",
 				"icon": "👧",
-				"movement": "rlud;X;2;1",
+				"movement": "r;;1;0;20",
 				"posX": 1,
 				"posY": 2
 			},
@@ -13,7 +13,7 @@ var gameState = {
 				"id": 3,
 				"name": "Yubaba",
 				"icon": "👵",
-				"movement": "r;X;2;1",
+				"movement": "d;Y;2;1;1",
 				"posX": 2,
 				"posY": 2
 			}
@@ -25,7 +25,7 @@ var gameState = {
 				"id": 2,
 				"name": "No-Face",
 				"icon": "👺",
-				"movement": "l;OXY;2;1",
+				"movement": "r;OXY;1;1;2",
 				"posX": 8,
 				"posY": 5
 			}
