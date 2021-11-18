@@ -6,6 +6,7 @@
 }
 
 #field {
+	/*user-select: none;*/
 	border: 1px solid #333;
 	color: #FFD1AA;
 }
