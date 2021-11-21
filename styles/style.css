@@ -19,6 +19,44 @@
 	background-color: rgba(118, 150, 86, 0.4);
 }
 
+.card_disp {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	font-size: 0.3em;
+	font-family: Belwe Bold,Georgia,Times,Times New Roman,serif;
+	font-weight: bold;
+	user-select: none;
+}
+.image_disp {
+	width: 100%;
+	height: 100%;
+}.icon_disp {
+	position: absolute;
+	height: 75%;
+	top: 12.5%;
+	left: 22.5%;
+	border-radius: 50%;
+}.border_disp {
+	position: absolute;
+	height: 100%;
+	left: 12.5%;
+	top: 0;
+}
+.attack_disp {
+	position: absolute;
+	bottom: 12.5%;
+	left: 25%;
+	color: white;
+}.hp_disp {
+	position: absolute;
+	bottom: 12.5%;
+	right: 25%;
+	color: white;
+}
+
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
   font-family: Noto;
   src: local("Noto Emoji"), local("Noto Color Emoji"), local("Noto"), 

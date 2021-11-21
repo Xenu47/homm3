@@ -3,20 +3,27 @@ var gameState = {
 		"heroes": [
 			{
 				"id": 1,
-				"name": "Chihiro",
+				"name": "Patches",
 				"icon": "👧",
-				"movement": "r;;1;0;20",
+				"icon_name": "Patches_the_Pirate_full.jpg",
+				"hp": 20,
+				"attack": 3,
+				"speed": 2,
+				"movement": "rlud;;1;0;1",
 				"posX": 1,
 				"posY": 2
 			},
-			{
-				"id": 3,
-				"name": "Yubaba",
-				"icon": "👵",
-				"movement": "d;Y;2;1;1",
-				"posX": 2,
-				"posY": 2
-			}
+			// {
+			// 	"id": 3,
+			// 	"name": "Yubaba",
+			// 	"icon": "👵",
+			// 	"hp": 10,
+			// 	"attack": 2,
+			// 	"speed": 1,
+			// 	"movement": "rlud;;1;0;1",
+			// 	"posX": 2,
+			// 	"posY": 2
+			// }
 		]
 	},
 	"black": {
@@ -25,7 +32,10 @@ var gameState = {
 				"id": 2,
 				"name": "No-Face",
 				"icon": "👺",
-				"movement": "r;OXY;1;1;2",
+				"hp": 5,
+				"attack": 10,
+				"speed": 3,
+				"movement": "rlud;;1;0;1",
 				"posX": 8,
 				"posY": 5
 			}
@@ -56,7 +66,7 @@ function clear(GS) {
 				cell.removeAttribute("name");
 				cell.removeEventListener("mouseover", hoverOn, false);
 				cell.removeEventListener("mouseout", hoverOff, false);
-				cell.innerHTML = cell.id;
+				cell.innerHTML = null;
 			}
 		}
 	}
@@ -81,6 +91,9 @@ function update() {
 		var id = hero.id;
 		var name = hero.name;
 		var icon = hero.icon;
+		var attack = hero.attack;
+		var hp = hero.hp;
+		var speed = hero.speed;
 		var posX = hero.posX;
 		var posY = hero.posY;
 		// console.log("SET WHITE", name, posX, posY);
@@ -89,8 +102,34 @@ function update() {
 		var cell = field.querySelectorAll("tr:nth-of-type("+posY+") td:nth-of-type("+posX+")")[0];
 		if (cell != null) {
 			cell.setAttribute("name",id);
-			cell.innerHTML = icon;
+			// cell.innerHTML = icon;
 			cell.title = name;
+
+			var card_disp = document.createElement("div");
+			card_disp.classList.toggle("card_disp");
+			var image_disp = document.createElement("div");
+			image_disp.classList.toggle("image_disp");
+			var icon_disp = document.createElement("img");
+			icon_disp.classList.toggle("icon_disp");
+			var border_disp = document.createElement("img");
+			border_disp.classList.toggle("border_disp");
+			var attack_disp = document.createElement("div");
+			attack_disp.classList.toggle("attack_disp");
+			var hp_disp = document.createElement("div");
+			hp_disp.classList.toggle("hp_disp");
+
+			image_disp.appendChild(icon_disp);
+			image_disp.appendChild(border_disp);
+			card_disp.appendChild(image_disp);
+			card_disp.appendChild(attack_disp);
+			card_disp.appendChild(hp_disp);
+			cell.appendChild(card_disp);
+
+			icon_disp.src = "props/"+hero.icon_name;
+			border_disp.src = "props/hs_icon.png";
+			attack_disp.innerHTML = attack;
+			hp_disp.innerHTML = hp;
+
 			cell.style.fontSize = size;
 			cell.style.fontFamily = "Noto";
 			cell.style.color = "white";

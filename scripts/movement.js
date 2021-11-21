@@ -21,7 +21,7 @@ function showMoves(id){
 	var movement = hero.movement.split(';');
 	// console.log(movement)
 	var availableMoves = calculateMoves(movement, hero.posX, hero.posY);
-	console.log(availableMoves)
+	// console.log(availableMoves)
 
 	for (let i in availableMoves) {
 
