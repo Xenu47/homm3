@@ -12,8 +12,8 @@ main {
 #button_offcanvas {
 	position: fixed;
 	user-select: none;
-	top: 5%;
-	left: 5%;
+	top: 5vh;
+	left: 5vh;
 	border-color: #E5E5E5;
 	background-color: transparent;
 	border-width: 0.1em;
