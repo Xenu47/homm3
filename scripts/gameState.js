@@ -175,7 +175,7 @@ function example() {
 
 function hoverOn(){
 	this.oldcolor = this.style.backgroundColor;
-	this.style.backgroundColor = "rgba(124, 212, 132, 0.4)";
+	this.style.backgroundColor = "rgba(124, 212, 132, 0.9)";
 	showMoves(this.getAttribute("name"));
 }
 

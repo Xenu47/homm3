@@ -29,7 +29,7 @@ function showMoves(id){
 			var cellToHighlight = field.querySelectorAll("tr:nth-of-type("+availableMoves[i][1]+") td:nth-of-type("+availableMoves[i][0]+")")[0];
 			// console.log(cellToHighlight.id);
 			cellToHighlight.oldcolor = cellToHighlight.style.backgroundColor;
-			cellToHighlight.style.backgroundColor = "rgba(232, 172, 134, 0.4)";
+			cellToHighlight.style.backgroundColor = "rgba(232, 172, 134, 0.9)";
 		} catch (error) {
 			// console.log(error);
 		}
