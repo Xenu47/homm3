@@ -9,6 +9,43 @@ main {
 	display: flex;
 }
 
+#button_offcanvas {
+	position: fixed;
+	user-select: none;
+	top: 5%;
+	left: 5%;
+	border-color: #E5E5E5;
+	background-color: transparent;
+	border-width: 0.1em;
+	border-radius: 1em;
+	padding: 0 0.5em;
+	font-size: 2em;
+	font-family: Alsina;
+	color: white;
+	transition: all .2s ease-in-out;
+}
+#button_offcanvas:hover{
+    transform: scale(1.1);
+    transition: 0.4s;
+}
+.offcanvas{
+	background-color: #04061D;
+	flex-direction:column;
+	width: 20%;
+}
+.offcanvas-body{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+.offcanvas-body a{
+	text-decoration: none;
+	font-family: BalooTamma;
+	font-size: 2em;
+	color: white;
+	margin: 5%;
+}
+
 #field_layout span {
 	font-size: 3em;
 	font-family: BalooTamma;
@@ -49,10 +86,15 @@ main {
 	flex-direction: row;
 	justify-content: space-around;
 }#icon_display img {
-	height: 80%;
+	user-select: none;
+	height: 60%;
 	margin-top: auto;
 	margin-bottom: auto;
 	filter: brightness(0) invert(1);
+	transition: all .2s ease-in-out;
+}#icon_display img:hover {
+    transform: scale(1.2);
+    transition: 0.4s;
 }
 #message_group {
 	width: 92.5%;
@@ -60,7 +102,7 @@ main {
 	background-color: grey;
 }
 #message_display {
-	height: 100%;
+	height: 97.5%;
 	background-color: grey;
 	border-radius: 10px 10px 0 0;
 }
@@ -114,7 +156,7 @@ main {
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
   font-family: Noto;
   src: local("Noto Emoji"), local("Noto Color Emoji"), local("Noto"), 
-       url("https://cdn.rawgit.com/googlei18n/noto-emoji/master/fonts/NotoEmoji-Regular.ttf");
+	   url("https://cdn.rawgit.com/googlei18n/noto-emoji/master/fonts/NotoEmoji-Regular.ttf");
 }
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
   font-family: BalooTamma;
