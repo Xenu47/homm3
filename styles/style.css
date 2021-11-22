@@ -12,7 +12,7 @@ main {
 #field_layout span {
 	font-size: 3em;
 	font-family: BalooTamma;
-	width: 360px;
+	width: 40%;
 	display: block;
 }
 
@@ -32,8 +32,8 @@ main {
 
 
 #multitask_window {
-	width: 700px;
-	height: 840px;
+	width: 38%;
+	height: 100%;
 	background-color: #04061D;
 	border-radius: 20px;
 	display: flex;
@@ -42,20 +42,20 @@ main {
 }
 #icon_display {
 	width: 100%;
-	height: 100px;
+	height: 12.5%;
 	background-color: #01020D;
 	border-radius: 20px 20px 0 0;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 }#icon_display img {
-	height: 80px;
+	height: 80%;
 	margin-top: auto;
 	margin-bottom: auto;
 	filter: brightness(0) invert(1);
 }
 #message_group {
-	width: 640px;
+	width: 92.5%;
 	height: 80%;
 	background-color: grey;
 }

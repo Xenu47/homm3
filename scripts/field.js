@@ -11,7 +11,9 @@ function generate(){
 	// document.getElementById("value-y").innerHTML = "Y = "+y;
 
 
-	var sideSize = 180;
+	let d = document.body.clientHeight;
+	var sideSize = document.body.clientHeight/6;
+	var sideSizePerc = 20;
 	// if (sideSize > 100) 	{sideSize = 100}
 	// if (x*sideSize > 600) 	{sideSize = 600/x;} 
 	// if (y*sideSize > 1000) 	{sideSize = 1000/y;}
@@ -21,7 +23,10 @@ function generate(){
     	var tr = document.createElement('tr');
 		for (let j = 0; j < y; j++) {
 			var td = document.createElement('td');
-			td.style.width = td.style.height = td.style.maxWidth = td.style.maxHeight = sideSize+"px";
+			td.style.width = sideSize+"px";
+			td.style.height = sideSize+"px";
+			td.style.maxWidth = sideSize+"px";
+			td.style.maxHeight = sideSize+"px";
 			let id = alphabet[j]+(i+1).toString();
 			td.id = id;
 			// td.innerHTML = id;
