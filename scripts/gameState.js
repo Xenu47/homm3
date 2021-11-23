@@ -1,63 +1,109 @@
+// var gameState = {
+// 	"white": {
+// 		"heroes": [
+// 			{
+// 				"id": 1,
+// 				"name": "Patches",
+// 				"icon": "👧",
+// 				"icon_name": "Patches_the_Pirate_full.jpg",
+// 				"hp": 20,
+// 				"attack": 3,
+// 				"speed": 2,
+// 				"movement": "rlud;;1;0;1",
+// 				"posX": 1,
+// 				"posY": 2
+// 			},
+// 			// {
+// 			// 	"id": 3,
+// 			// 	"name": "Yubaba",
+// 			// 	"icon": "👵",
+// 			// 	"hp": 10,
+// 			// 	"attack": 2,
+// 			// 	"speed": 1,
+// 			// 	"movement": "rlud;;1;0;1",
+// 			// 	"posX": 2,
+// 			// 	"posY": 2
+// 			// }
+// 		]
+// 	},
+// 	"black": {
+// 		"heroes":[
+// 			{
+// 				"id": 2,
+// 				"name": "No-Face",
+// 				"icon": "👺",
+// 				"hp": 5,
+// 				"attack": 10,
+// 				"speed": 3,
+// 				"movement": "rlud;;1;0;1",
+// 				"posX": 8,
+// 				"posY": 5
+// 			}
+// 		]
+// 	},
+// 	"whiteFirst": true,
+// 	"turn": 4
+// }
+
 var gameState = {
-	"white": {
-		"heroes": [
-			{
-				"id": 1,
-				"name": "Patches",
-				"icon": "👧",
-				"icon_name": "Patches_the_Pirate_full.jpg",
-				"hp": 20,
-				"attack": 3,
-				"speed": 2,
-				"movement": "rlud;;1;0;1",
-				"posX": 1,
-				"posY": 2
-			},
-			// {
-			// 	"id": 3,
-			// 	"name": "Yubaba",
-			// 	"icon": "👵",
-			// 	"hp": 10,
-			// 	"attack": 2,
-			// 	"speed": 1,
-			// 	"movement": "rlud;;1;0;1",
-			// 	"posX": 2,
-			// 	"posY": 2
-			// }
-		]
-	},
-	"black": {
-		"heroes":[
-			{
-				"id": 2,
-				"name": "No-Face",
-				"icon": "👺",
-				"hp": 5,
-				"attack": 10,
-				"speed": 3,
-				"movement": "rlud;;1;0;1",
-				"posX": 8,
-				"posY": 5
-			}
-		]
-	},
-	"whiteFirst": true,
-	"turn": 4
+	"version": 1,
+	"heroes": [
+		{
+			"id": 1,
+			"name": "Patches",
+			"icon_name": "Patches_the_Pirate_full.jpg",
+			"hp": 20,
+			"attack": 3,
+			"speed": 2,
+			"x": 2,
+			"y": 1,
+			"user_id": 1,
+			"is_active": true
+		},
+		{
+			"id": 3,
+			"name": "Detective Pepe",
+			"icon_name": "Detective Pepe.png",
+			"hp": 10,
+			"attack": 5,
+			"speed": 3,
+			"x": 5,
+			"y": 4,
+			"user_id": 2,
+			"is_active": true
+		}
+	],
+	"messages": [
+		"Вася ударил петю. Нанес 10 урона.",
+		"Петя откинул копыта",
+		"Здесь будут последние 10 сообщений"
+	],
+	"user_id_move": 1,
+	"winner": null,
+	"chat": [
+		{
+			"from": "Player1",
+			"message": "Ты лох",
+			"datetime": "19:57"
+		}
+	]
 }
+
+
 var lastGS = JSON.parse(JSON.stringify(gameState));
 
 function clear(GS) {
 	var field = document.getElementById("field");
-	var heroes = GS.white.heroes.concat(GS.black.heroes);
+	var heroes = GS.heroes;
 	if (heroes) {
 		for (i in heroes) {
 			var hero = heroes[i];
 			var name = hero.name;
-			var posX = hero.posX;
-			var posY = hero.posY;
+			var x = hero.x;
+			var y = hero.y;
 			// console.log("CLEAR", name, posX, posY);
 
-			var cell = field.querySelectorAll("tr:nth-of-type("+posY+") td:nth-of-type("+posX+")")[0];
+			var cell = field.querySelectorAll("tr:nth-of-type("+(5-y)+") td:nth-of-type("+x+")")[0];
 			if (cell != null) {
 				cell.style.fontSize = null;
 				cell.style.fontFamily = null;
@@ -66,6 +112,10 @@ function clear(GS) {
 				cell.removeAttribute("name");
 				cell.removeEventListener("mouseover", hoverOn, false);
 				cell.removeEventListener("mouseout", hoverOff, false);
+				cell.removeEventListener("click", clickOn, false);
+				cell.removeEventListener("click", makeMove, false);
+				cell.removeEventListener("click", makeAttack, false);
+				cell.removeEventListener("contextmenu", contextOn, false);
 				cell.innerHTML = null;
 			}
 		}
@@ -74,34 +124,33 @@ function clear(GS) {
 
 function update() {
 	clear(lastGS);
-	var node = document.getElementById("input-json")
-	if (node != null) {
-		try {
-			gameState = JSON.parse(node.value);
-		} catch (error) {
-			console.log(error);
-		}
-	}
+	// var node = document.getElementById("input-json")
+	// if (node != null) {
+	// 	try {
+	// 		gameState = JSON.parse(node.value);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// }
 
 	var size = document.getElementById("ninja").value*0.5+"px";
 	var field = document.getElementById("field");
-	var heroes = gameState.white.heroes;
+	var heroes = gameState.heroes;
 	for (i in heroes) {
 		var hero = heroes[i];
 		var id = hero.id;
 		var name = hero.name;
 		var icon = hero.icon;
-		var attack = hero.attack;
 		var hp = hero.hp;
+		var attack = hero.attack;
 		var speed = hero.speed;
-		var posX = hero.posX;
-		var posY = hero.posY;
+		var x = hero.x;
+		var y = hero.y;
 		// console.log("SET WHITE", name, posX, posY);
 
 
-		var cell = field.querySelectorAll("tr:nth-of-type("+posY+") td:nth-of-type("+posX+")")[0];
+		var cell = field.querySelectorAll("tr:nth-of-type("+(5-y)+") td:nth-of-type("+x+")")[0];
 		if (cell != null) {
-			cell.setAttribute("name",id);
 			// cell.innerHTML = icon;
 			cell.title = name;
 
@@ -116,7 +165,9 @@ function update() {
 			var attack_disp = document.createElement("div");
 			attack_disp.classList.toggle("attack_disp");
 			var hp_disp = document.createElement("div");
-			hp_disp.classList.toggle("hp_disp");
+			hp_disp.classList.toggle("hp_disp");			
+			var cell_overlay = document.createElement("div");
+			cell_overlay.classList.toggle("cell_overlay");
 
 			image_disp.appendChild(icon_disp);
 			image_disp.appendChild(border_disp);
@@ -124,44 +175,26 @@ function update() {
 			card_disp.appendChild(attack_disp);
 			card_disp.appendChild(hp_disp);
 			cell.appendChild(card_disp);
+			cell_overlay.setAttribute("name",id);
+			card_disp.appendChild(cell_overlay);
 
 			icon_disp.src = "props/"+hero.icon_name;
 			border_disp.src = "props/hs_icon.png";
 			attack_disp.innerHTML = attack;
 			hp_disp.innerHTML = hp;
 
+			cell_overlay.addEventListener("mouseover", hoverOn, false);
+			cell_overlay.addEventListener("mouseout", hoverOff, false);
+			cell_overlay.addEventListener("click", clickOn, false);
+			cell_overlay.addEventListener("contextmenu", contextOn, false);
+
 			cell.style.fontSize = size;
 			cell.style.fontFamily = "Noto";
 			cell.style.color = "white";
-			cell.addEventListener("mouseover", hoverOn, false);
-			cell.addEventListener("mouseout", hoverOff, false);
-		}
-	}
-	var heroes = gameState.black.heroes;
-	for (i in heroes) {
-		var hero = heroes[i];
-		var id = hero.id;
-		var name = hero.name;
-		var icon = hero.icon;
-		var posX = hero.posX;
-		var posY = hero.posY;
-		// console.log("SET BLACK", name, posX, posY);
-
-		var cell = field.querySelectorAll("tr:nth-of-type("+posY+") td:nth-of-type("+posX+")")[0];
-		if (cell != null) {
-			cell.setAttribute("name",id);
-			cell.innerHTML = icon;
-			cell.title = name;
-			cell.name = id;
-			cell.style.fontSize = size;
-			cell.style.fontFamily = "Noto";
-			cell.style.color = "black";
-			cell.addEventListener("mouseover", hoverOn, false);
-			cell.addEventListener("mouseout", hoverOff, false);
 		}
 	}
 	lastGS = JSON.parse(JSON.stringify(gameState));
-	gameState.turn += 1;
+	gameState.version += 1;
 }
 
 
@@ -174,12 +207,20 @@ function example() {
 }
 
 function hoverOn(){
-	this.oldcolor = this.style.backgroundColor;
-	this.style.backgroundColor = "rgba(124, 212, 132, 0.9)";
 	showMoves(this.getAttribute("name"));
 }
 
-function hoverOff(){  
-	this.style.backgroundColor = this.oldcolor;
+function hoverOff(){
 	hideMoves(this.getAttribute("name"));
+}
+
+function clickOn(){
+	this.removeEventListener("mouseout", hoverOff, false);
+	tryMove(this.getAttribute("name"));
+}
+
+function contextOn(event){
+	event.preventDefault();
+	this.removeEventListener("mouseout", hoverOff, false);
+	tryAttack(this.getAttribute("name"));
 }

@@ -1,8 +1,8 @@
 
 body {
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
-  background-color: #E5E5E5;
+	text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+	box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+	background-color: #E5E5E5;
 }
 
 main {
@@ -25,8 +25,8 @@ main {
 	transition: all .2s ease-in-out;
 }
 #button_offcanvas:hover{
-    transform: scale(1.1);
-    transition: 0.4s;
+	transform: scale(1.1);
+	transition: 0.4s;
 }
 .offcanvas{
 	background-color: #04061D;
@@ -67,10 +67,11 @@ main {
 	background-color: rgba(118, 150, 86, 0.9);
 }
 
-
+/*------------------multitask window style-------*/
 #multitask_window {
 	width: 38%;
-	height: 100%;
+	height: 90vh;
+	max-height: 80vh;
 	background-color: #04061D;
 	border-radius: 20px;
 	display: flex;
@@ -93,19 +94,36 @@ main {
 	filter: brightness(0) invert(1);
 	transition: all .2s ease-in-out;
 }#icon_display img:hover {
-    transform: scale(1.2);
-    transition: 0.4s;
+	transform: scale(1.2);
+	transition: 0.4s;
 }
 #message_group {
 	width: 92.5%;
 	height: 80%;
-	background-color: grey;
+	
 }
 #message_display {
 	height: 97.5%;
 	background-color: grey;
-	border-radius: 10px 10px 0 0;
+	display: flex;
+	flex-direction: column;
+	overflow:scroll;
+	overflow-x:hidden;
 }
+::-webkit-scrollbar{
+	width: 1.5vh;
+}
+#message_display::-webkit-scrollbar-track{
+	background-color: #abb7b7;
+}
+
+#message_display::-webkit-scrollbar-thumb {
+	background: transparent;
+	box-shadow: 0px 0px 0px 100vh black;
+	border-radius: 50px;
+}
+/* в душе не ебу, потом пофиксю скролбар мб*/
+
 #message_box {
 	position: relative;
 	bottom: 0;
@@ -114,7 +132,11 @@ main {
 }#message_box button{
 	border-radius: 0 0 10px 0;
 }
+/*-----------------------------------------multitask style-------------*/
 
+
+
+/*------------------------------------card style---------*/
 .card_disp {
 	width: 100%;
 	height: 100%;
@@ -152,21 +174,52 @@ main {
 	right: 20%;
 	color: white;
 }
+.cell_overlay {
+	position: absolute;
+	display: block;
+	top: 0;
+	width: inherit;
+	height: inherit;
+	background-color: transparent;
+}
+/*-----------------------card style---------------------*/
+
 
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
-  font-family: Noto;
-  src: local("Noto Emoji"), local("Noto Color Emoji"), local("Noto"), 
-	   url("https://cdn.rawgit.com/googlei18n/noto-emoji/master/fonts/NotoEmoji-Regular.ttf");
+	font-family: Noto;
+	src: local("Noto Emoji"), local("Noto Color Emoji"), local("Noto"), 
+		 url("https://cdn.rawgit.com/googlei18n/noto-emoji/master/fonts/NotoEmoji-Regular.ttf");
 }
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
-  font-family: BalooTamma;
-  src: url("../fonts/BalooTamma-Regular.ttf");
+	font-family: BalooTamma;
+	src: url("../fonts/BalooTamma-Regular.ttf");
 }
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
-  font-family: Alsina;
-  src: url("../fonts/Alsina Ultrajada.ttf");
+	font-family: Alsina;
+	src: url("../fonts/Alsina Ultrajada.ttf");
 }
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
-  font-family: CU;
-  src: url("../fonts/Cry Uncial Regular.ttf");
+	font-family: CU;
+	src: url("../fonts/Cry Uncial Regular.ttf");
+}
+
+.message{
+	display:flex;
+	flex-direction: row;
+	padding: 1%;
+	
+}
+.message.user_1 .nickname_message{
+	color: #baf73c;
+
+	padding:0 1%;
+}
+.message.user_2 .nickname_message{
+	color:#600000;
+
+	padding:0 1%;
+}
+
+.time_message{
+	color: darkgrey;
 }
