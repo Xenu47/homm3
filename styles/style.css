@@ -196,11 +196,11 @@ main {
 }
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
 	font-family: Alsina;
-	src: url("../fonts/Alsina Ultrajada.ttf");
+	src: url("../fonts/Alsina-Ultrajada.ttf");
 }
 @font-face { /* https://www.google.com/get/noto/#noto-emoji-zsye */
 	font-family: CU;
-	src: url("../fonts/Cry Uncial Regular.ttf");
+	src: url("../fonts/Cry-Uncial-Regular.ttf");
 }
 
 .message{
