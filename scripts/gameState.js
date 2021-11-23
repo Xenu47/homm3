@@ -221,6 +221,7 @@ function clickOn(){
 
 function contextOn(event){
 	event.preventDefault();
+	this.removeEventListener("mouseover", hoverOn, false);
 	this.removeEventListener("mouseout", hoverOff, false);
 	tryAttack(this.getAttribute("name"));
 }
