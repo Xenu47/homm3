@@ -25,11 +25,14 @@
 		<script src="scripts/movement.js"></script>
 		<script src="scripts/assorted.js"></script>
 		<script src="scripts/onload.js"></script>
+		<script src="scripts/message.js"></script>
 		
 	</head>
 	<body class="d-flex h-100 text-center text-white bg-dark">
 		<div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
-			<button id="button_offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">mඞnu</button>
+			<button id="button_offcanvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">
+				M<span class="mirror">ඞ</span>NU
+			</button>
 			<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample">
 				<div class="offcanvas-header">
 					<h5 class="offcanvas-title" id="offcanvasExampleLabel"></h5>
@@ -44,9 +47,9 @@
 
 			<main class="my-auto">
 				<div class="mx-auto" id="field_layout">
-					<span class="text-end ms-auto">Player 1</span>
+					<span class="text-end ms-auto user_1">Player 1</span>
 					<table id="field"></table>
-					<span class="text-start">Player 2</span>	
+					<span class="text-start user_2">Player 2</span>	
 				</div>
 
 				<div class="my-auto" id="multitask_window">
@@ -58,124 +61,13 @@
 					</div>
 					<div class="mx-auto my-start" id="message_group">
 						<div class="text-start" id="message_display">
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_1">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							<div class="message user_2">
-								<span class="time_message">11:47</span>
-								<span class="nickname_message">viplash4:</span>
-								<span class="text_message">gondon</span>
-								
-							</div>
-							
-							
-							
 						</div>
-						<div class="input-group" id="message_box">
+						<form class="input-group" id="message_box">
 							<input type="text" class="form-control" placeholder="Message">
 							<div class="input-group-append">
-								<button class="btn btn-success" type="button">Send</button>
+								<button class="btn btn-success" type="button" onclick="sendMessage()">Send</button>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</main>

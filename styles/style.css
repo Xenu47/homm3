@@ -9,6 +9,15 @@ main {
 	display: flex;
 }
 
+.mirror {
+	display: inline-block;
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+}
+
 #button_offcanvas {
 	position: fixed;
 	user-select: none;
@@ -51,6 +60,7 @@ main {
 	font-family: BalooTamma;
 	width: 40%;
 	display: block;
+	cursor: pointer;
 }
 
 #field {
@@ -206,20 +216,20 @@ main {
 .message{
 	display:flex;
 	flex-direction: row;
-	padding: 1%;
-	
+	padding: 0.3em;	
 }
-.message.user_1 .nickname_message{
-	color: #baf73c;
-
-	padding:0 1%;
-}
-.message.user_2 .nickname_message{
-	color:#600000;
-
-	padding:0 1%;
-}
-
-.time_message{
+.message .time_message{
 	color: darkgrey;
+}
+.message .nickname_message{
+	padding: 0 0.3em;
+}
+.message .text_message{
+	color: white;
+}
+.user_1 {
+	color: #f1f227;
+}
+.user_2 {
+	color: #7fffd4;
 }

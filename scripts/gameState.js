@@ -47,6 +47,16 @@
 
 var gameState = {
 	"version": 1,
+	"players": [
+		{
+			"name": "viplash4",
+			"user_id": 1
+		},
+		{
+			"name": "Xenu",
+			"user_id": 2
+		}
+	],
 	"heroes": [
 		{
 			"id": 1,
@@ -57,7 +67,7 @@ var gameState = {
 			"speed": 2,
 			"x": 2,
 			"y": 1,
-			"user_id": 1,
+			"user_id": 2,
 			"is_active": true
 		},
 		{
@@ -69,7 +79,7 @@ var gameState = {
 			"speed": 3,
 			"x": 5,
 			"y": 4,
-			"user_id": 2,
+			"user_id": 1,
 			"is_active": true
 		}
 	],
@@ -82,9 +92,44 @@ var gameState = {
 	"winner": null,
 	"chat": [
 		{
-			"from": "Player1",
-			"message": "Ты лох",
+			"user_id": 2,
+			"message": "невиплашам привет!",
 			"datetime": "19:57"
+		},
+		{
+			"user_id": 1,
+			"message": "а?",
+			"datetime": "19:58"
+		},
+		{
+			"user_id": 1,
+			"message": "дароу",
+			"datetime": "19:58"
+		},
+		{
+			"user_id": 2,
+			"message": "в доту?",
+			"datetime": "19:57"
+		},
+		{
+			"user_id": 2,
+			"message": "а патом работать.......",
+			"datetime": "19:57"
+		},
+		{
+			"user_id": 1,
+			"message": "нуууууу",
+			"datetime": "19:59"
+		},
+		{
+			"user_id": 1,
+			"message": "я щас презентацию с английского сдам",
+			"datetime": "19:59"
+		},
+		{
+			"user_id": 1,
+			"message": "и можем работать",
+			"datetime": "19:59"
 		}
 	]
 }
@@ -221,7 +266,5 @@ function clickOn(){
 
 function contextOn(event){
 	event.preventDefault();
-	this.removeEventListener("mouseover", hoverOn, false);
-	this.removeEventListener("mouseout", hoverOff, false);
 	tryAttack(this.getAttribute("name"));
 }

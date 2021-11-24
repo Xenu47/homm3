@@ -31,33 +31,27 @@ function showMoves(id){
 	
 	var hero = getHeroById(id);
 
-	var set_user_id = 1;
-	if (document.querySelectorAll("#message_box input")[0].value){
-		try {
-			set_user_id = Number(document.querySelectorAll("#message_box input")[0].value);;
-		} catch (error) {
-			console.log(error);
-		}
-	}
-	if (set_user_id == hero.user_id){
+	if (current_user == hero.user_id){
 
 		var hero_cell = field.querySelectorAll("tr:nth-of-type("+(5-hero.y)+") td:nth-of-type("+hero.x+")")[0];
 		hero_cell.oldcolor = hero_cell.style.backgroundColor;
-		hero_cell.style.backgroundColor = "rgba(192, 192, 192, 0.9)";
+		hero_cell.style.backgroundColor = "rgba(180, 201, 254, 0.9)";
 
 		// var movement = hero.movement.split(';');
 		// console.log(movement)
 		var availableMoves = calculateMoves(hero.x, hero.y);
 		// console.log(availableMoves)
 
-		console.log(availableMoves);
+		// console.log(availableMoves);
 		for (let i in availableMoves) {
 
 			try {
 				var cellToHighlight = field.querySelectorAll("tr:nth-of-type("+(5-availableMoves[i][1])+") td:nth-of-type("+availableMoves[i][0]+")")[0];
 				// console.log(cellToHighlight.id);
-				cellToHighlight.oldcolor = cellToHighlight.style.backgroundColor;
-				cellToHighlight.style.backgroundColor = "rgba(124, 212, 132, 0.9)";
+				if (cellToHighlight.childNodes[0] == null){
+					cellToHighlight.oldcolor = cellToHighlight.style.backgroundColor;
+					cellToHighlight.style.backgroundColor = "rgba(124, 212, 132, 0.9)";
+				}
 			} catch (error) {
 				// console.log(error);
 			}
@@ -74,15 +68,7 @@ function hideMoves(id){
 
 	var hero = getHeroById(id);
 
-	var set_user_id = 1;
-	if (document.querySelectorAll("#message_box input")[0].value){
-		try {
-			set_user_id = Number(document.querySelectorAll("#message_box input")[0].value);;
-		} catch (error) {
-			console.log(error);
-		}
-	}
-	if (set_user_id == hero.user_id){
+	if (current_user == hero.user_id){
 
 		var hero_cell = field.querySelectorAll("tr:nth-of-type("+(5-hero.y)+") td:nth-of-type("+hero.x+")")[0];
 		hero_cell.style.backgroundColor = hero_cell.oldcolor;
@@ -97,9 +83,11 @@ function hideMoves(id){
 			try {
 				var cellToHighlight = field.querySelectorAll("tr:nth-of-type("+(5-availableMoves[i][1])+") td:nth-of-type("+availableMoves[i][0]+")")[0];
 				// console.log(cellToHighlight.id);
-				cellToHighlight.style.backgroundColor = cellToHighlight.oldcolor;
-				cellToHighlight.removeEventListener("click", makeMove, false);
-				cellToHighlight.removeEventListener("click", makeAttack, false);
+				if (cellToHighlight.childNodes[0] == null){
+					cellToHighlight.style.backgroundColor = cellToHighlight.oldcolor;
+					cellToHighlight.removeEventListener("click", makeMove, false);
+					cellToHighlight.removeEventListener("click", makeAttack, false);
+				}
 			} catch (error) {
 				// console.log(error);
 			}
@@ -109,7 +97,6 @@ function hideMoves(id){
 }
 
 function cancelAction(){
-	hideMoves(this.getAttribute("name"));
 	generate();
 }
 
@@ -118,15 +105,7 @@ function tryMove(id){
 	
 	var hero = getHeroById(id);
 
-	var set_user_id = 1;
-	if (document.querySelectorAll("#message_box input")[0].value){
-		try {
-			set_user_id = Number(document.querySelectorAll("#message_box input")[0].value);;
-		} catch (error) {
-			console.log(error);
-		}
-	}
-	if (set_user_id == hero.user_id){
+	if (current_user == hero.user_id){
 
 		var hero_cell = field.querySelectorAll("tr:nth-of-type("+(5-hero.y)+") td:nth-of-type("+hero.x+")")[0];
 		var active = hero_cell.querySelectorAll(".cell_overlay")[0];
@@ -138,16 +117,17 @@ function tryMove(id){
 		var availableMoves = calculateMoves(hero.x, hero.y);
 		// console.log(availableMoves)
 
-		console.log(availableMoves);
+		// console.log(availableMoves);
 		for (let i in availableMoves) {
 
 			try {
 				var cellToHighlight = field.querySelectorAll("tr:nth-of-type("+(5-availableMoves[i][1])+") td:nth-of-type("+availableMoves[i][0]+")")[0];
 				// console.log(cellToHighlight.id);
-				cellToHighlight.removeEventListener("click", makeAttack, false);
-				cellToHighlight.addEventListener("click", makeMove, false);
-				cellToHighlight.name = [availableMoves[i][0],availableMoves[i][1],id];
-				
+				if (cellToHighlight.childNodes[0] == null){
+					cellToHighlight.removeEventListener("click", makeAttack, false);
+					cellToHighlight.addEventListener("click", makeMove, false);
+					cellToHighlight.name = [availableMoves[i][0],availableMoves[i][1],id];
+				}
 			} catch (error) {
 				// console.log(error);
 			}
@@ -173,44 +153,48 @@ function makeMove(){
 }
 
 function tryAttack(id){
+	cancelAction();
 	var field = document.getElementById("field");
 	
 	var hero = getHeroById(id);
 
-	var set_user_id = 1;
-	if (document.querySelectorAll("#message_box input")[0].value){
-		try {
-			set_user_id = Number(document.querySelectorAll("#message_box input")[0].value);;
-		} catch (error) {
-			console.log(error);
-		}
-	}
-	if (set_user_id == hero.user_id){
+	if (current_user == hero.user_id){
 
 		var hero_cell = field.querySelectorAll("tr:nth-of-type("+(5-hero.y)+") td:nth-of-type("+hero.x+")")[0];
+		hero_cell.style.backgroundColor = "rgba(180, 201, 254, 0.9)";
 		var active = hero_cell.querySelectorAll(".cell_overlay")[0];
 		active.addEventListener("click", cancelAction, false);
 		active.addEventListener("contextmenu", cancelAction, false);
+		active.removeEventListener("mouseover", hoverOn, false);
+		active.removeEventListener("mouseout", hoverOff, false);
 
 		// var movement = hero.movement.split(';');
 		// console.log(movement)
 		var availableMoves = calculateMoves(hero.x, hero.y);
 		// console.log(availableMoves)
 
-		console.log(availableMoves);
+		var li = 0
+		// console.log(availableMoves);
 		for (let i in availableMoves) {
 
 			try {
 				var cellToHighlight = field.querySelectorAll("tr:nth-of-type("+(5-availableMoves[i][1])+") td:nth-of-type("+availableMoves[i][0]+")")[0];
 				// console.log(cellToHighlight.id);
-				cellToHighlight.style.backgroundColor = "rgba(232, 172, 134, 0.9)";
-				cellToHighlight.removeEventListener("click", makeMove, false);
-				cellToHighlight.addEventListener("click", makeAttack, false);
-				cellToHighlight.name = [availableMoves[i][0],availableMoves[i][1],id];
-
+				cellToHighlight.style.backgroundColor = cellToHighlight.oldcolor;
+				if (cellToHighlight.childNodes[0] != null){
+					cellToHighlight.style.backgroundColor = "rgba(232, 172, 134, 0.9)";
+					cellToHighlight.removeEventListener("click", makeMove, false);
+					cellToHighlight.addEventListener("click", makeAttack, false);
+					cellToHighlight.name = [availableMoves[i][0],availableMoves[i][1],id];
+					li += 1;
+				}
 			} catch (error) {
 				// console.log(error);
 			}
+		}
+		if (li == 0){
+			// hero_cell.style.backgroundColor = "rgba(24, 125, 224, 0.9)";
+			hero_cell.style.backgroundColor = "rgba(180, 201, 254, 0.9)";
 		}
 		// console.log(gameState)
 	}
@@ -221,7 +205,7 @@ function makeAttack(){
 	let pos = this.name;
 	this.removeAttribute("name");
 	var hero = getHeroByPos([pos[0], pos[1]]);
-	console.log("nigger", hero);
+	console.log("KILL", hero);
 	// hero.x = pos[0];
 	// hero.y = pos[1];
 	let index = gameState.heroes.indexOf(hero);
