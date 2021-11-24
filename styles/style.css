@@ -183,6 +183,11 @@ main {
 	bottom: 7.5%;
 	right: 20%;
 	color: white;
+}.moves_disp {
+	position: absolute;
+	top: 0%;
+	left: 10%;
+	color: white;
 }
 .cell_overlay {
 	position: absolute;
