@@ -1,11 +1,19 @@
-function getPlayers(){
-	var players = [];
-	var ids = [];
-	for (let i in gameState.players) {
-		players.push(gameState.players[i].name);
-		ids.push(gameState.players[i].user_id);
+function loadLog(){
+	clearMessages();
+	var message_display = document.getElementById("message_display");
+	for (let i in gameState.messages) {
+		var log = gameState.messages[Number(i)];
+
+		var message = document.createElement("div");
+		message.classList.toggle("message");
+
+		var text_message = document.createElement("span");
+		text_message.classList.toggle("text_message");
+		text_message.innerText = log;
+
+		message.appendChild(text_message);
+		message_display.appendChild(message);
 	}
-	return [players,ids]
 }
 
 function loadMessages() {
@@ -26,7 +34,7 @@ function loadMessages() {
 
 		var nickname_message = document.createElement("span");
 		nickname_message.classList.toggle("nickname_message");
-		nickname_message.innerText = players[0][players[1].indexOf(log.user_id)] + ":";
+		nickname_message.innerText = log.from + ":";
 
 		var text_message = document.createElement("span");
 		text_message.classList.toggle("text_message");
@@ -37,7 +45,34 @@ function loadMessages() {
 		message.appendChild(text_message);
 		message_display.appendChild(message);
 	}
-	
+}
+
+function loadPrivate(){
+	clearMessages();	
+	var message_display = document.getElementById("message_display");
+	var message = document.createElement("div");
+	message.classList.toggle("message");
+
+	var text_message = document.createElement("span");
+	text_message.classList.toggle("text_message");
+	text_message.innerText = 'I am Private!';
+
+	message.appendChild(text_message);
+	message_display.appendChild(message);
+}
+
+function loadGlobal(){	
+	clearMessages();	
+	var message_display = document.getElementById("message_display");
+	var message = document.createElement("div");
+	message.classList.toggle("message");
+
+	var text_message = document.createElement("span");
+	text_message.classList.toggle("text_message");
+	text_message.innerText = 'I am Global!';
+
+	message.appendChild(text_message);
+	message_display.appendChild(message);
 }
 
 function clearMessages(){
@@ -62,4 +97,18 @@ function sendMessage(event){
 		input_field.value = null;
 		loadMessages();
 	}
+}
+
+function customAddMessage(text){
+	var message_display = document.getElementById("message_display");
+	var message = document.createElement("div");
+	message.classList.toggle("message");
+
+	var text_message = document.createElement("span");
+	text_message.classList.toggle("text_message");
+	text_message.innerText = text;
+
+	message.appendChild(text_message);
+	message_display.appendChild(message);
+
 }

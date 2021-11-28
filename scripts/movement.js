@@ -1,40 +1,3 @@
-function move(){
-	// console.log(gameState)
-}
-
-function getHeroById(id){
-	var GSheroes = gameState.heroes;
-	var players = [];
-	var hero = null;
-	for (let i in GSheroes) {
-		if (GSheroes[i].id == id) {
-			hero = GSheroes[i];
-		}
-	}
-	return hero
-}
-function getHeroByPos(pos){
-	var GSheroes = gameState.heroes;
-	var x = pos[0];
-	var y = pos[1];
-	var hero = null;
-	for (let i in GSheroes) {
-		if (GSheroes[i].x == x && GSheroes[i].y == y) {
-			hero = GSheroes[i];
-		}
-	}
-	return hero
-}
-function getHeroesByUserId(user_id){
-	var GSheroes = gameState.heroes;
-	var heroes = [];
-	for (let i in GSheroes) {
-		if (GSheroes[i].user_id == user_id) {
-			heroes.push(GSheroes[i]);
-		}
-	}
-	return heroes
-}
 
 function showMoves(id){
 	var field = document.getElementById("field");
@@ -148,12 +111,24 @@ function makeMove(){
 	var field = document.getElementById("field");
 	let pos = this.name;
 	this.removeAttribute("name");
-	var hero = getHeroById(pos[2]);
-	hero.moves_made += 1;
-	hero.x = pos[0];
-	hero.y = pos[1];
-	gameState.version += 1;
-	generate();
+	var attempt = fetch('/api/v1/make_move', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrf_token
+			},
+			body: JSON.stringify({
+				'hero_id': pos[2],
+				'x': pos[0]-1,
+				'y': pos[1]-1})
+		}
+		).then((response) => {return response.json()}
+		).then((data) => {
+			console.log(data)  // {"heroes": ...}
+		})
+	if (attempt.ok){
+		waitMyMove();
+	}
 }
 
 function tryAttack(id){
@@ -205,54 +180,29 @@ function makeAttack(){
 	let pos = this.name;
 	this.removeAttribute("name");
 	var hero = getHeroById(pos[2]);
-	// console.log(hero);
-	hero.moves_made = 100;
-	hero.is_active = false;
-	// console.log(hero);
 	var enemy_hero = getHeroByPos([pos[0], pos[1]]);
-	whoMoves();
-	// console.log("KILL", hero);
-	// let index = gameState.heroes.indexOf(enemy_hero);
-	// if (index > -1) {
-	// 	gameState.heroes.splice(index, 1);
-	// }
-	// gameState.version += 1;
-	generate();
+	// hero.moves_made = 100;
+	// hero.is_active = false;
+	// whoMoves();
+	var attempt = fetch('/api/v1/attack', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrf_token
+			},
+			body: JSON.stringify({
+				'hero_id': hero.id,
+				'target_id': enemy_hero.id})
+		}
+		).then((response) => {return response.json()}
+		).then((data) => {
+			console.log(data)  // {"heroes": ...}
+		})
+	if (attempt.ok){
+		waitMyMove();
+	}
 }
 
-function whoMoves(test){
-	var players = getPlayers();
-	var GSheroes = gameState.heroes;
-	var current_team = getHeroesByUserId(current_user);
-	var heroes_stuck = 0;
-	for (let i in GSheroes){
-		if ((GSheroes[i].moves_made > GSheroes[i].speed) && (!GSheroes[i].is_active) && (GSheroes[i].user_id == current_user)){
-			heroes_stuck += 1;
-		}
-	}
-	console.log("heroes_stuck=",heroes_stuck);
-	if (heroes_stuck == current_team.length){
-		var q = players[1].concat();
-		console.log("q=",q);
-		q.splice(q.indexOf(current_user),1);
-		console.log("q=",q);
-		gameState.user_id_move = q[0];
-	}
-	if (current_user != gameState.user_id_move){
-		console.log("gameState.user_id_move=",gameState.user_id_move);
-		current_user = gameState.user_id_move;
-		current_team = getHeroesByUserId(current_user);
-		for (let i in current_team){
-			current_team[i].moves_made = 0;
-		}
-	}
-	
-	for (let i in GSheroes){
-		if ((GSheroes[i].user_id == current_user) && (GSheroes[i].moves_made < GSheroes[i].speed)){
-			GSheroes[i].is_active = true
-		} else { GSheroes[i].is_active = false }
-	}
-}
 
 function calculateMoves(heroX, heroY){
 	var coords = [[1,0],[-1,0],[0,1],[0,-1]];
