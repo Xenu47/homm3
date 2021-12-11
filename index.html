@@ -20,15 +20,10 @@
 		<!-- Project CSS -->
 		<link href="styles/style.css" rel="stylesheet">
 		<!-- Project JS -->
-		<script src="scripts/functions.js"></script>
-		<script type="text/javascript">
-			var current_user = 1;
-			var update_id = 0;
-			var csrf_token = 12345;
-		</script>
 		<script src="scripts/field.js"></script>
 		<script src="scripts/gameState.js"></script>
 		<script src="scripts/movement.js"></script>
+		<script src="scripts/assorted.js"></script>
 		<script src="scripts/onload.js"></script>
 		<script src="scripts/message.js"></script>
 		
@@ -76,7 +71,24 @@
 					</div>
 				</div>
 			</main>
-
+<!-- 
+			<footer class="d-flex mt-auto mx-auto text-white-50 cover-container w-100">
+				<div class="row mb-3 w-100 g-3">
+					<div class="input-group col mw-25">
+						<label for="field-x" id="value-x">X</label>
+						<input type="range" class="form-range" min="1" max="20" step="1" id="field-x" value=6 oninput="generate()">
+					</div>
+					<div class="input-group col mw-25">
+						<label for="field-y" id="value-y">Y</label>
+						<input type="range" class="form-range" min="1" max="20" step="1" id="field-y" value=10 oninput="generate()">
+					</div>
+					<div class="input-group col form">
+						<input class="form-control w-100" placeholder="json" id="input-json" autocomplete="none"></input>
+						<button class="btn btn-warning col" type="button" onclick="example()">example</button>
+						<button class="btn btn-success col" type="submit" onclick="update()" id="trash">parse</button>
+					</div>
+				</div>
+			</footer> -->
 			<div id="ninja" style="display:none;"></div>
 		</div>
 	</body>

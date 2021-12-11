@@ -4,9 +4,19 @@ function generate(){
 	field.innerHTML = "";
 	var x = 4;
 	var y = 5;
+	// var x = document.getElementById("field-x").value;
+	// var y = document.getElementById("field-y").value;
+	// console.log(x,y);
+	// document.getElementById("value-x").innerHTML = "X = "+x;
+	// document.getElementById("value-y").innerHTML = "Y = "+y;
 
+
+	let d = document.body.clientHeight;
 	var sideSize = document.body.clientHeight/6;
 	var sideSizePerc = 20;
+	// if (sideSize > 100) 	{sideSize = 100}
+	// if (x*sideSize > 600) 	{sideSize = 600/x;} 
+	// if (y*sideSize > 1000) 	{sideSize = 1000/y;}
 
     var tbody = document.createElement('tbody');
 	for (let i = 0; i < x; i++) {
